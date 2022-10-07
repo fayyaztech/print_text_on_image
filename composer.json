@@ -3,6 +3,14 @@
     "description": "This library will help you to print text and images over images like certificate and id cards sign and barcodes qe codes",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "print",
+        "image",
+        "php",
+        "php-gd",
+        "edit",
+        "image Edit"
+    ],
     "autoload": {
         "psr-4": {
             "Fayyaztech\\PrintTextOnImage\\": "src/"
