@@ -50,25 +50,32 @@ class PrintTextOnImage
         } else {
             $backgroundImage = imagecreatefromjpeg($this->backgroundImagePath);
         }
-
         for ($i = 0; $i < count($this->data); $i++) {
+            $objectOf = explode("\\", get_class($this->data[$i]));
+            if (end($objectOf) == 'ConfigText') {
+                if (end($objectOf))
 
-            if (!file_exists($this->data[$i]->font_location)) {
-                echo 'font not found';
-                return 0;
+                    if (!file_exists($this->data[$i]->font_location)) {
+                        echo 'font not found';
+                        return 0;
+                    }
+                imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
+            } else {
+                $src = imagecreatefrompng(dirname(__FILE__) . '/font/php.png');
+                imagecopymerge($backgroundImage, $src, 200, 150, 0, 0, 60, 35, 10);
             }
-            imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
         }
 
         if ($this->imageOptions == 'download') {
             header('content-type: image/png');
+            header('Content-Disposition: attachment; filename="xyz.png"');
             imagepng($backgroundImage);
         } elseif ($this->imageOptions == 'save') {
             imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", uniqid() . ".png")); //save image
-            imagedestroy($backgroundImage);
         } else {
             header('content-type: image/png');
             imagepng($backgroundImage);
         }
+        imagedestroy($backgroundImage);
     }
 }

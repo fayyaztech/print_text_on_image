@@ -2,7 +2,7 @@
 
 namespace Fayyaztech\PrintTextOnImage;
 
-class SetText
+class ConfigText
 {
     /****
      * fontSize

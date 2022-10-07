@@ -7,12 +7,10 @@
             "Fayyaztech\\PrintTextOnImage\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "fayyaztech",
-            "email": "fayyaztech@gmail.com"
-        }
-    ],
+    "authors": [{
+        "name": "fayyaztech",
+        "email": "fayyaztech@gmail.com"
+    }],
     "minimum-stability": "dev",
     "require": {}
 }
