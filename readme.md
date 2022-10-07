@@ -6,7 +6,10 @@
 - currently im not providing multiple color for text only black color available
 - Im working on it it will be available soon
 
-
+## installation
+```console
+composer require fayyaztech/print_text_on_image
+```
 ## sample code
 
 - setContent is an array of classes Text and images
