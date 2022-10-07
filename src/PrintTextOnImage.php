@@ -34,10 +34,11 @@ class PrintTextOnImage
      */
     public function generate()
     {
-        if (file_exists($this->backgroundImagePath)) {
+        if (!file_exists($this->backgroundImagePath)) {
             echo 'background Image not found';
             return 0;
         }
+
         if ($this->data[0]->x == null || $this->data[0]->y == null) {
             echo 'Image position required';
             return 0;
@@ -51,6 +52,11 @@ class PrintTextOnImage
         }
 
         for ($i = 0; $i < count($this->data); $i++) {
+
+            if (!file_exists($this->data[$i]->font_location)) {
+                echo 'font not found';
+                return 0;
+            }
             imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
         }
 

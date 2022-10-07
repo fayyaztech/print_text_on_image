@@ -73,7 +73,7 @@ class SetText
      *
      * @return void
      */
-    public function __constructor(String $textContent, int $x, int $y, int $fontSize = 30, int $angle = 0,  String $font_location = '/src/font/Arial.ttf', $color = '')
+    public function __construct(String $textContent, int $x, int $y, int $fontSize = 30, int $angle = 0,  String $font_location = '', $color = '')
     {
         $im = imagecreatetruecolor(400, 30);
         $black = imagecolorallocate($im, 0, 0, 0);
@@ -83,6 +83,8 @@ class SetText
         $this->y = $y;
         $this->color = $black;
         $this->font_location = $font_location;
+        if ($font_location == '')
+            $this->font_location = dirname(__FILE__) . '/font/Arial.ttf';
         $this->textContent = $textContent;
     }
 }
