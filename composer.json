@@ -1,5 +1,6 @@
 {
     "name": "fayyaztech/print_text_on_image",
+    "description": "This library will help you to print text and images over images like certificate and id cards sign and barcodes qe codes",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -11,6 +12,6 @@
         "name": "fayyaztech",
         "email": "fayyaztech@gmail.com"
     }],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {}
 }

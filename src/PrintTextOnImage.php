@@ -61,8 +61,12 @@ class PrintTextOnImage
                     }
                 imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
             } else {
-                $src = imagecreatefrompng(dirname(__FILE__) . '/font/php.png');
-                imagecopymerge($backgroundImage, $src, 200, 150, 0, 0, 60, 35, 10);
+                if (!file_exists($this->data[$i]->imagePath)) {
+                    echo 'image over not found';
+                    return 0;
+                }
+                $src = imagecreatefrompng($this->data[$i]->imagePath);
+                imagecopymerge($backgroundImage, $src, $this->data[$i]->x, $this->data[$i]->y, 0, 0, $this->data[$i]->width, $this->data[$i]->height, $this->data[$i]->opacity);
             }
         }
 
