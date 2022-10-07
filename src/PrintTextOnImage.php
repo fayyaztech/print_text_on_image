@@ -4,8 +4,65 @@ namespace Fayyaztech\PrintTextOnImage;
 
 class PrintTextOnImage
 {
-    public function print()
+    private $backgroundImagePath;
+    private $data;
+    private $imageOptions;
+    private $savePath;
+
+
+    /**
+     * Method generate
+     *
+     * @param String $backgroundImagePath background image file path | remote url not allow | jpeg and png support
+     * @param Array $data data should be an array of SetText class
+     * @param String $imageOptions download|preview|save
+     * @param String $savePath if you choose option to save the provide local dir path path to save image
+     * @return void
+     */
+    public function __construct($backgroundImagePath, array $data, $imageOptions = 'download', $savePath = "")
     {
-        echo "ssd";
+        $this->backgroundImagePath = $backgroundImagePath;
+        $this->data = $data;
+        $this->imageOptions = $imageOptions;
+        $this->savePath = $savePath;
+    }
+
+    /**
+     * Method generate
+     * function will generate the image with provided content
+     * @return void
+     */
+    public function generate()
+    {
+        if (file_exists($this->backgroundImagePath)) {
+            echo 'background Image not found';
+            return 0;
+        }
+        if ($this->data[0]->x == null || $this->data[0]->y == null) {
+            echo 'Image position required';
+            return 0;
+        }
+
+        $ext = explode('.', $this->backgroundImagePath);
+        if (end($ext) == 'png') {
+            $backgroundImage = imagecreatefrompng($this->backgroundImagePath);
+        } else {
+            $backgroundImage = imagecreatefromjpeg($this->backgroundImagePath);
+        }
+
+        for ($i = 0; $i < count($this->data); $i++) {
+            imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
+        }
+
+        if ($this->imageOptions == 'download') {
+            header('content-type: image/png');
+            imagepng($backgroundImage);
+        } elseif ($this->imageOptions == 'save') {
+            imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", uniqid() . ".png")); //save image
+            imagedestroy($backgroundImage);
+        } else {
+            header('content-type: image/png');
+            imagepng($backgroundImage);
+        }
     }
 }
