@@ -23,7 +23,7 @@ class ConfigImage
      *
      * @return void
      */
-    public function __construct(String $imagePath, int $x, int $y, int $width, int $height, int $opacity = 0)
+    public function __construct(String $imagePath, int $x, int $y, int $width, int $height, int $opacity = 100)
     {
         $this->imagePath = $imagePath;
         $this->x = $x;
