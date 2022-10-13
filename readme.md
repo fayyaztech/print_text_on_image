@@ -46,7 +46,7 @@ composer require fayyaztech/print_text_on_image
      * @param String $backgroundImagePath background image file path | remote url not allow | jpeg and png support
      * @param Array $data data should be an array of ConfigText and ConfigImage class
      * @param String $imageOptions download|preview|save
-     * @param String $savePath if you choose option to save the provide local dir path path to save image
+     * @param String $savePath if you want to save file on server directory. provide the path here and $imageOption must be save
      
 ```
 
