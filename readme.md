@@ -32,6 +32,7 @@ composer require fayyaztech/print_text_on_image
      * @param String $textContent text you want to print on image
      * @param Int $fontSize font size of that text
      * @param Int $angle rotation of text
+     * @param Bool $textHorizontalCenter user can make text center auto by added true parameter
      * @param Int $x horizontal position of text
      * @param Int $y vertical position of text
      * @param $color $color color is black for now we will provide color option soon
@@ -62,7 +63,7 @@ use Fayyaztech\PrintTextOnImage\ConfigText;
 use Fayyaztech\PrintTextOnImage\PrintTextOnImage as PrintTextOnImagePrintTextOnImage;
 
 $setContent = [
-    new ConfigText('Text on image', 30, 60, 30),
+    new ConfigText('Text on image', 30, 60, 30,0,true),
     new ConfigText('this is 2nd text', 30, 100, 10),
     new ConfigImage('php.png', 150, 100, 60, 30, 70),
 ];
@@ -71,3 +72,9 @@ $setContent = [
 $test = new PrintTextOnImagePrintTextOnImage('./white.png', $setContent, 'preview');
 $test->generate();
  ```
+
+ ## Special Thanks to 
+ Text Center over background image 
+ Tosin Amuda
+ https://gist.github.com/tosinamuda
+ https://gist.github.com/tosinamuda/ab575f9d37865a5efff04309e2195293
