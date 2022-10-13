@@ -31,7 +31,7 @@ class PrintTextOnImage
         if ($fileName == null) {
             $this->fileName = uniqid();
         } else {
-            $this->fileName = str_replace(' ', '_', $fileName);
+            $this->fileName = str_replace(' ', '_', $fileName . '_' . date('Y-m-d H:i:s'));
         }
     }
 
@@ -94,7 +94,7 @@ class PrintTextOnImage
                 header('Content-Disposition: attachment; filename="' . $this->fileName . '.png"');
                 imagepng($backgroundImage);
             } elseif ($this->imageOptions == 'save') {
-                imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", uniqid() . ".png")); //save image
+                imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", $this->fileName . ".png")); //save image
             } else {
                 header('content-type: image/png');
                 imagepng($backgroundImage);
