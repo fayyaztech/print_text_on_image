@@ -74,7 +74,5 @@ $test->generate();
  ```
 
  ## Special Thanks to 
- Text Center over background image 
- Tosin Amuda
- https://gist.github.com/tosinamuda
- https://gist.github.com/tosinamuda/ab575f9d37865a5efff04309e2195293
+ ### Text Center over background image 
+ - [Tosin Amuda]([https://](https://gist.github.com/tosinamuda)) (https://gist.github.com/tosinamuda/ab575f9d37865a5efff04309e2195293)
