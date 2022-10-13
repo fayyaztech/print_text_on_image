@@ -59,6 +59,13 @@ class ConfigText
      */
     public $textContent;
 
+    /**
+     * textHorizontalCenter
+     * make it if you want your text in center horizontaly
+     * @var bool
+     */
+    public $textHorizontalCenter = false;
+
 
     /**
      * Method __constructor
@@ -73,7 +80,7 @@ class ConfigText
      *
      * @return void
      */
-    public function __construct(String $textContent, int $x, int $y, int $fontSize = 30, int $angle = 0,  String $font_location = '', $color = '')
+    public function __construct(String $textContent, int $x, int $y, int $fontSize = 30, int $angle = 0, $textHorizontalCenter = false, String $font_location = '', $color = '')
     {
         $im = imagecreatetruecolor(400, 30);
         $black = imagecolorallocate($im, 0, 0, 0);
@@ -83,6 +90,7 @@ class ConfigText
         $this->y = $y;
         $this->color = $black;
         $this->font_location = $font_location;
+        $this->textHorizontalCenter = $textHorizontalCenter;
         if ($font_location == '')
             $this->font_location = dirname(__FILE__) . '/font/Arial.ttf';
         $this->textContent = $textContent;

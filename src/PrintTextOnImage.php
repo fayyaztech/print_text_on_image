@@ -59,6 +59,9 @@ class PrintTextOnImage
                         echo 'font not found';
                         return 0;
                     }
+                if ($this->data[$i]->textHorizontalCenter) {
+                    $this->data[$i]->x = $this->textCenterImage($backgroundImage, $this->data[$i]);
+                }
                 imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
             } else {
                 if (!file_exists($this->data[$i]->imagePath)) {
@@ -72,7 +75,7 @@ class PrintTextOnImage
                 } else {
                     $src = imagecreatefromjpeg($this->data[$i]->imagePath);
                 }
-                $src = imagescale($src,$this->data[$i]->width, $this->data[$i]->height);
+                $src = imagescale($src, $this->data[$i]->width, $this->data[$i]->height);
                 imagecopymerge($backgroundImage, $src, $this->data[$i]->x, $this->data[$i]->y, 0, 0, $this->data[$i]->width, $this->data[$i]->height, $this->data[$i]->opacity);
             }
         }
@@ -90,5 +93,40 @@ class PrintTextOnImage
             }
             imagedestroy($backgroundImage);
         }
+    }
+
+    private function textCenterImage($image, $fontData)
+    {
+
+        $bWH = getimagesize($this->backgroundImagePath);
+        // Get image dimensions
+        // $image_width = imagesx($image);
+        // $image_height = imagesy($image);
+
+        $image_width = $bWH[0];
+        $image_height = $bWH[1];
+
+        $text_bound = imageftbbox($fontData->fontSize, $fontData->angle, $fontData->font_location, $fontData->textContent);
+
+        //Get the text upper, lower, left and right corner bounds
+        $lower_left_x =  $text_bound[0];
+        $lower_left_y =  $text_bound[1];
+        $lower_right_x = $text_bound[2];
+        $lower_right_y = $text_bound[3];
+        $upper_right_x = $text_bound[4];
+        $upper_right_y = $text_bound[5];
+        $upper_left_x =  $text_bound[6];
+        $upper_left_y =  $text_bound[7];
+
+
+        //Get Text Width and text height
+        $text_width =  $lower_right_x - $lower_left_x; //or  $upper_right_x - $upper_left_x
+        $text_height = $lower_right_y - $upper_right_y; //or  $lower_left_y - $upper_left_y
+
+        //Get the starting position for centering
+        $start_x_offset = ($image_width - $text_width) / 2;
+        $start_y_offset = ($image_height - $text_height) / 2;
+
+        return $start_x_offset;
     }
 }
