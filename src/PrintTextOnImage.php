@@ -8,6 +8,7 @@ class PrintTextOnImage
     private $data;
     private $imageOptions;
     private $savePath;
+    private $fileName;
 
 
     /**
@@ -17,14 +18,21 @@ class PrintTextOnImage
      * @param Array $data data should be an array of SetText class
      * @param String $imageOptions download|preview|save
      * @param String $savePath if you choose option to save the provide local dir path path to save image
+     * @param String $fileName set file name. file will download by that name.
      * @return void
      */
-    public function __construct($backgroundImagePath, array $data, $imageOptions = 'download', $savePath = "")
+    public function __construct($backgroundImagePath, array $data, $imageOptions = 'download', $fileName = null, $savePath = "")
     {
         $this->backgroundImagePath = $backgroundImagePath;
         $this->data = $data;
         $this->imageOptions = $imageOptions;
         $this->savePath = $savePath;
+
+        if ($fileName == null) {
+            $this->fileName = uniqid();
+        } else {
+            $this->fileName = str_replace(' ', '_', $fileName);
+        }
     }
 
     /**
@@ -83,7 +91,7 @@ class PrintTextOnImage
         if ($this->imageOptions != 'debug') {
             if ($this->imageOptions == 'download') {
                 header('content-type: image/png');
-                header('Content-Disposition: attachment; filename="xyz.png"');
+                header('Content-Disposition: attachment; filename="' . $this->fileName . '.png"');
                 imagepng($backgroundImage);
             } elseif ($this->imageOptions == 'save') {
                 imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", uniqid() . ".png")); //save image
