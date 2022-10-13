@@ -62,24 +62,33 @@ class PrintTextOnImage
                 imagettftext($backgroundImage, $this->data[$i]->fontSize, $this->data[$i]->angle, $this->data[$i]->x, $this->data[$i]->y, $this->data[$i]->color, $this->data[$i]->font_location, $this->data[$i]->textContent);
             } else {
                 if (!file_exists($this->data[$i]->imagePath)) {
-                    echo 'image over not found';
+                    echo 'Provided Image ' . $this->data[$i]->imagePath . ' Not Found';
                     return 0;
                 }
-                $src = imagecreatefrompng($this->data[$i]->imagePath);
+
+                $extOver = explode('.', $this->data[$i]->imagePath);
+                if (end($extOver) == 'png') {
+                    $src = imagecreatefrompng($this->data[$i]->imagePath);
+                } else {
+                    $src = imagecreatefromjpeg($this->data[$i]->imagePath);
+                }
+                $src = imagescale($src,$this->data[$i]->width, $this->data[$i]->height);
                 imagecopymerge($backgroundImage, $src, $this->data[$i]->x, $this->data[$i]->y, 0, 0, $this->data[$i]->width, $this->data[$i]->height, $this->data[$i]->opacity);
             }
         }
 
-        if ($this->imageOptions == 'download') {
-            header('content-type: image/png');
-            header('Content-Disposition: attachment; filename="xyz.png"');
-            imagepng($backgroundImage);
-        } elseif ($this->imageOptions == 'save') {
-            imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", uniqid() . ".png")); //save image
-        } else {
-            header('content-type: image/png');
-            imagepng($backgroundImage);
+        if ($this->imageOptions != 'debug') {
+            if ($this->imageOptions == 'download') {
+                header('content-type: image/png');
+                header('Content-Disposition: attachment; filename="xyz.png"');
+                imagepng($backgroundImage);
+            } elseif ($this->imageOptions == 'save') {
+                imagepng($backgroundImage, "./" . $this->savePath . "/" . str_replace(" ", "_", uniqid() . ".png")); //save image
+            } else {
+                header('content-type: image/png');
+                imagepng($backgroundImage);
+            }
+            imagedestroy($backgroundImage);
         }
-        imagedestroy($backgroundImage);
     }
 }
