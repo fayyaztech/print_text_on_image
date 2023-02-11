@@ -31,7 +31,7 @@ class PrintTextOnImage
         if ($fileName == null) {
             $this->fileName = uniqid();
         } else {
-            $this->fileName = str_replace(' ', '_', $fileName . '_' . date('Y-m-d H:i:s'));
+            $this->fileName = str_replace(' ', '_', $fileName);
         }
     }
 
